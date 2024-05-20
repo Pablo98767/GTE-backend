@@ -93,7 +93,7 @@ CREATE TABLE "addresses" (
 );
 
 -- CreateTable
-CREATE TABLE "courses" (
+CREATE TABLE "vehicle" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE "courses" (
     "deleted_by" TEXT,
     "created_by" TEXT,
     "category_id" TEXT NOT NULL,
-    CONSTRAINT "courses_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "vehicle_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -114,7 +114,7 @@ CREATE TABLE "categories" (
     "updated_at" DATETIME NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "course_id" TEXT NOT NULL,
+    "vehicle_id" TEXT NOT NULL,
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "deleted_by" TEXT,
     "created_by" TEXT
@@ -133,7 +133,7 @@ CREATE TABLE "notes" (
 );
 
 -- CreateTable
-CREATE TABLE "user_favorite_courses" (
+CREATE TABLE "user_favorite_vehicles" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
@@ -141,8 +141,8 @@ CREATE TABLE "user_favorite_courses" (
     "deleted_by" TEXT,
     "created_by" TEXT,
     "user_id" TEXT NOT NULL,
-    "course_id" TEXT NOT NULL,
-    CONSTRAINT "user_favorite_courses_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "vehicle_id" TEXT NOT NULL,
+    CONSTRAINT "user_favorite_vehicles_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -159,16 +159,16 @@ CREATE TABLE "orders" (
 );
 
 -- CreateTable
-CREATE TABLE "course_orders" (
+CREATE TABLE "vehicle_orders" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" DATETIME NOT NULL,
     "order_id" TEXT NOT NULL,
-    "course_id" TEXT NOT NULL,
+    "vehicle_id" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
     "totalAmount" REAL NOT NULL,
-    CONSTRAINT "course_orders_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "orders" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "course_orders_course_id_fkey" FOREIGN KEY ("course_id") REFERENCES "courses" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "vehicle_orders_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "orders" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "vehicle_orders_vehicle_id_fkey" FOREIGN KEY ("vehicle_id") REFERENCES "vehicle" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

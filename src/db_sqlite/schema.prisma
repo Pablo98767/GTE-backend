@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:coead_db.db"
+  url      = "file:gte_db.db"
 }
 
 model User {
@@ -27,7 +27,7 @@ model User {
   telephone          Telephone[]
   message            Message[]
   orders             Order[]
-  userFavoriteCourses UserFavoriteCourses[]
+  userFavoriteVehicles UserFavoriteVehicles[]
 
   @@map("users")
 }
@@ -120,7 +120,7 @@ model Address {
   @@map("addresses")
 }
 
-model Course {
+model Vehicle {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
@@ -132,9 +132,9 @@ model Course {
   createdBy   String?  @map("created_by")
   categoryId  String   @map("category_id")
   category    Category @relation(fields: [categoryId], references: [id])
-  order       CourseOrder[]
+  order       VehicleOrder[]
 
-  @@map("courses")
+  @@map("vehicle")
 
 }
 
@@ -144,8 +144,8 @@ model Category {
   updatedAt   DateTime       @updatedAt @map("updated_at")
   name        String
   description String?
-  courseId  String         @map("course_id")
-  course    Course[]
+  vehicleId  String         @map("vehicle_id")
+  vehicle    Vehicle[]
   isActive    Boolean        @default(true) @map("is_active")
   deletedBy   String?        @map("deleted_by")
   createdBy   String?        @map("created_by")
@@ -166,7 +166,7 @@ model Note {
   @@map("notes")
 }
 
-model UserFavoriteCourses {
+model UserFavoriteVehicles {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -175,9 +175,9 @@ model UserFavoriteCourses {
   createdBy String?  @map("created_by")
   userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id])
-  courseId    String   @map("course_id")
+  vehicleId    String   @map("vehicle_id")
 
-  @@map("user_favorite_courses")
+  @@map("user_favorite_vehicles")
 }
 
 model Order {
@@ -190,24 +190,24 @@ model Order {
   userId       String      @map("user_id")
   user         User        @relation(fields: [userId], references: [id])
   restaurantId String      @map("restaurant_id")
-  course      CourseOrder[]
+  vehicle      VehicleOrder[]
   payment      Payment[]
 
   @@map("orders")
 }
 
-model CourseOrder {
+model VehicleOrder {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   orderId     String   @map("order_id")
   order       Order    @relation(fields: [orderId], references: [id])
-  courseId      String   @map("course_id")
-  course      Course   @relation(fields: [courseId], references: [id])
+  vehicleId      String   @map("vehicle_id")
+  vehicle      Vehicle   @relation(fields: [vehicleId], references: [id])
   quantity    Int
   totalAmount Float
 
-  @@map("course_orders")
+  @@map("vehicle_orders")
 }
 
 model Payment {
