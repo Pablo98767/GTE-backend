@@ -1,6 +1,8 @@
 import { sign } from "jsonwebtoken";
 import config from "../config";
 
+console.log(config)
+
 const generateJWT = (id: string) => {
   const expiresIn = config.jwt.TOKEN_EXPIRES_IN;
   const payload = {
