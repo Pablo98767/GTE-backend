@@ -115,7 +115,7 @@ const createMessages = async (prisma: PrismaClient) => {
   const firstMessage = {
     title: "Bem vindo ao sistema",
     content:
-      "Olá, seja bem vindo ao sistema de gestão de restaurantes foodExplorer.",
+      "Olá, seja bem vindo ao sistema de gestão de transporte escolar GTE.",
     type: "info",
   };
 
