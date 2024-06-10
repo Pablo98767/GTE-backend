@@ -9,7 +9,7 @@ export const login = async (
   const response = await request(app)
     .post(`/user/login`)
     .send({ 
-      email: login || 'rafaelds.89@gmail.com',
+      email: login || 'admin@email.com',
       password: password,
     });
 
@@ -26,7 +26,7 @@ export const createUser = async (
     birthday: Date;
   }
 ) => {
-  const userAdmin = await login(app, 'rafaelds.89@gmail.com', '123456');
+  const userAdmin = await login(app, 'admin@email.com', '123456');
 
   const response = await request(app)
     .post(`/user`)

@@ -29,11 +29,11 @@ describe("Login flow", () => {
   });
 
   it("should return 200 OK on login", async () => {
-    const logged = await login(app, "rafaelds.89@gmail.com", "123456");
+    const logged = await login(app, "admin@email.com", "123456");
 
     expect(logged.status).toBe(200);
-    expect(logged.body).toHaveProperty("token");
-    expect(logged.body).toEqual(
+    expect(logged.body.tokenData).toHaveProperty("token");
+    expect(logged.body.tokenData).toEqual(
       expect.objectContaining({
         token: expect.any(String),
         expires: expect.any(String),
